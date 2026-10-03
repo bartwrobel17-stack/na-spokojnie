@@ -11,6 +11,8 @@ type MenuItem = {
   image?: string;
 };
 
+const heroImage = "https://upload.wikimedia.org/wikipedia/commons/7/77/Gourmet_Hamburger_%28Unsplash%29.jpg";
+
 const starter = [
   "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QJWIsEXmPmLJZ6FUqn3ENs0HH8USBw2CK8Kqu75OXd00ui1aepQyPaguV59XGvdTZifSb2pb4xRy4XpKcgFT0e7uNDzDryOt76W1q3x_mK4ww8JaV_Fx0yuiZNKbVHkh3B3ebJnNeI2uQ=w397-h298-k-no",
   "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9ThNNKQiv2cxYVrq09vTkvSEAh5SAngTjgzAovMoKo5yHCI3_KyYSwArpVgthC56ExlIJ7Us5D51Hea-e5hWb1_6Nqy15WDh8Le2xKCfKBJ9HNc9VwHrQTGHkfvVhkvAFAPZIaU97Gp_wQ=w224-h380-k-no",
@@ -111,7 +113,7 @@ export default function Home() {
           <p>Restauracja, w której można zwolnić, dobrze zjeść i zostać trochę dłużej.</p>
           <div><a className="btn acid" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a><a className="btn outline" href="#menu">Zobacz menu</a></div>
         </div>
-        <div className="heroImg"><Image src={photos[0]} alt="Na Spokojnie" fill priority sizes="50vw"/></div>
+        <div className="heroImg"><Image src={heroImage} alt="Elegancki burger w restauracji Na Spokojnie" fill priority sizes="50vw"/></div>
         <div className="rating">5,0<br/><small>451 opinii</small></div>
       </section>
 
