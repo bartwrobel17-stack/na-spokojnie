@@ -1,0 +1,1 @@
+import type {Metadata} from "next"; import "./globals.css"; export const metadata:Metadata={title:"Na Spokojnie | Restauracja we Wrocławiu",description:"Na Spokojnie. Dobre jedzenie i dobry klimat przy Grota-Roweckiego 71 we Wrocławiu."}; export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="pl"><body>{children}</body></html>}
