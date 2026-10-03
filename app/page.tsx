@@ -1,12 +1,207 @@
 "use client";
+
 import Image from "next/image";
-import {useEffect,useState} from "react";
-const starter=[
-"https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QJWIsEXmPmLJZ6FUqn3ENs0HH8USBw2CK8Kqu75OXd00ui1aepQyPaguV59XGvdTZifSb2pb4xRy4XpKcgFT0e7uNDzDryOt76W1q3x_mK4ww8JaV_Fx0yuiZNKbVHkh3B3ebJnNeI2uQ=w397-h298-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/ANWiy9ThNNKQiv2cxYVrq09vTkvSEAh5SAngTjgzAovMoKo5yHCI3_KyYSwArpVgthC56ExlIJ7Us5D51Hea-e5hWb1_6Nqy15WDh8Le2xKCfKBJ9HNc9VwHrQTGHkfvVhkvAFAPZIaU97Gp_wQ=w224-h380-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Rg_AiHGn0bRbn-HQBUOZKCzOF4MUygvdhDgbGB1W8PcZ3NpPDfrsoXpL-5_9BqKKHkVHM7fc101Fi3TZSxrn-2XFV9eQsrNgBXthrq7j7-PQO5Ar4gzh2vxQzrzvRoatDmSq3ScfP-nIQ=w224-h398-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TEFgw1ex6voWHl6B2mRczK15BbTvo_yawE1cZCnARg0ZKxIB630n6yiITw92RctiYPaMZb6oBGdf81CVRbMbOdf2Wt9JlH4bSLU2Ea50euqEeEoMC2x1x_LL8hO01qC1ymbNd4lqeJuWdG=w224-h316-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QUIwQsh5HgphXVTX9XZWzRN9hRP7X6SLPm-EyNp3FgCC1TARbv0vy4v9jUnuohVMZPB8fJvTuTJFq0MhviQossgjXq-vdegRCDv1P-tzZDom2OBDUUW2Fhd3nX2i3RXg3IcgYKpxPTJtjm=w224-h398-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QNbBDOD9xQ9BEHiO2BxBP0OePzJIRlZOVDXPJ0zo14wXfQtRKz8YTGHECvXcbuohMNOAH1HvoRoxAfHMEwu6902OpXdKJxczax3Rszjv315RK2Pth2aZfSBNTQh9RKg78SYpVqv5USmnY=w396-h298-k-no"];
-const reviews=[["Bartek Kasza","Świetne miejsce z mega klimatem! Jedzenie naprawdę pyszne, wszystko świeże i dobrze podane."],["Bercik","Świetne miejsce z klimatem, można w przyjemnej atmosferze zjeść śniadanie i nie tylko :)"],["zukatocm zukato","Bardzo smaczne, fajny klimat, wszystko świeże i „na spokojnie”"]];
-export default function Home(){const[photos,setPhotos]=useState(starter);const[active,setActive]=useState<number|null>(null);const[panel,setPanel]=useState(false);const[logged,setLogged]=useState(false);const[pass,setPass]=useState("");useEffect(()=>{const x=localStorage.getItem("nsp-gallery");if(x)setPhotos(JSON.parse(x))},[]);const save=(x:string[])=>{setPhotos(x);localStorage.setItem("nsp-gallery",JSON.stringify(x))};const add=(e:React.ChangeEvent<HTMLInputElement>)=>Array.from(e.target.files||[]).forEach(f=>{const r=new FileReader();r.onload=()=>save([...photos,String(r.result)]);r.readAsDataURL(f)});return <main><header><b>NA <span>SPOKOJNIE</span></b><nav><a href="#o-nas">O nas</a><a href="#menu">Menu</a><a href="#galeria">Galeria</a><a href="#opinie">Opinie</a><a href="#kontakt">Kontakt</a></nav><a className="phone" href="tel:+48577722263">577 722 263</a></header><section className="hero"><div className="heroText"><small>WROCŁAW · KRZYKI</small><h1>Dobre rzeczy.<br/><i>Na spokojnie.</i></h1><p>Restauracja, w której można zwolnić, dobrze zjeść i zostać trochę dłużej.</p><div><a className="btn acid" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a><a className="btn outline" href="#menu">Zobacz menu</a></div></div><div className="heroImg"><Image src={photos[0]} alt="Na Spokojnie" fill priority sizes="50vw"/></div><div className="rating">5,0<br/><small>451 opinii</small></div></section><section id="o-nas" className="split"><div><small>01 / O NAS</small><h2>Miejsce, do którego <em>wpada się bez pośpiechu.</em></h2></div><p>Na Spokojnie to lokal przy Grota-Roweckiego 71 we Wrocławiu. Świeże jedzenie, swobodna atmosfera i ludzie, którzy potrafią cieszyć się chwilą. Śniadanie, burger, frytki albo po prostu coś dobrego. Bez zadęcia.</p></section><section id="menu" className="cream"><div className="head"><div><small>02 / NA TALERZU</small><h2>Popularne wybory</h2></div><span>20–40 zł / osoba</span></div><div className="cards"><article><b>01</b><h3>Burgery</h3><p>Soczyste, konkretne i bez zbędnych kombinacji.</p></article><article><b>02</b><h3>Smash Burger z batatami</h3><p>Jedna z pozycji, po które goście wracają.</p></article><article><b>03</b><h3>Śniadania</h3><p>Na dobry początek dnia albo spokojny brunch.</p></article></div></section><section id="galeria" className="gallery"><div className="head"><div><small>03 / GALERIA</small><h2>Tak to u nas wygląda</h2></div><span>{photos.length} zdjęć</span></div><div className="grid">{photos.map((p,i)=><button key={i} onClick={()=>setActive(i)}><Image src={p} alt={"Na Spokojnie "+(i+1)} fill sizes="25vw"/></button>)}</div></section><section id="opinie" className="dark"><small>04 / GOŚCIE MÓWIĄ</small><div className="bigRating">5,0 <span>★★★★★</span></div><div className="reviews">{reviews.map(([n,t])=><article key={n}><div>★★★★★</div><p>„{t}”</p><b>{n}</b></article>)}</div></section><section id="kontakt" className="split contact"><div><small>05 / WPADNIJ</small><h2>Zostaw pośpiech<br/>za drzwiami.</h2><a className="bigPhone" href="tel:+48577722263">577 722 263</a></div><div><p><b>ADRES</b><br/>Grota-Roweckiego 71<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Otwarte do 23:00</p><a className="btn black" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a></div></section><iframe className="map" title="Mapa" src="https://www.google.com/maps?q=Grota-Roweckiego+71,+Wrocław&output=embed" loading="lazy"/><footer><b>NA <span>SPOKOJNIE</span></b><span>Grota-Roweckiego 71 · Wrocław</span><button onClick={()=>setPanel(true)}>Panel właściciela</button></footer>{active!==null&&<div className="lightbox" onClick={()=>setActive(null)}><button className="nav">‹</button><Image src={photos[active]} alt="" fill sizes="100vw" style={{objectFit:"contain"}}/><button className="close" onClick={()=>setActive(null)}>×</button><button className="next" onClick={e=>{e.stopPropagation();setActive((active+1)%photos.length)}}>›</button></div>}{panel&&<div className="overlay"><div className="owner"><button className="x" onClick={()=>setPanel(false)}>×</button>{!logged?<><small>STREFA WŁAŚCICIELA</small><h2>Zarządzaj galerią</h2><p>Demo lokalne. Hasło: admin. Zdjęcia są zapisywane w tej przeglądarce.</p><input type="password" placeholder="Hasło" value={pass} onChange={e=>setPass(e.target.value)}/><button className="btn black full" onClick={()=>pass==="admin"&&setLogged(true)}>Zaloguj</button></>:<><small>PANEL WŁAŚCICIELA</small><h2>Galeria</h2><label className="upload">＋ Dodaj zdjęcia<input type="file" accept="image/*" multiple onChange={add}/></label><div className="admin">{photos.map((p,i)=><div key={i}><Image src={p} alt="" fill sizes="150px"/><button onClick={()=>save(photos.filter((_,j)=>j!==i))}>Usuń</button></div>)}</div></>}</div></div>}</main>}
+import { ChangeEvent, useEffect, useState } from "react";
+
+type MenuItem = {
+  id: number;
+  title: string;
+  description: string;
+  price: string;
+  image?: string;
+};
+
+const starter = [
+  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QJWIsEXmPmLJZ6FUqn3ENs0HH8USBw2CK8Kqu75OXd00ui1aepQyPaguV59XGvdTZifSb2pb4xRy4XpKcgFT0e7uNDzDryOt76W1q3x_mK4ww8JaV_Fx0yuiZNKbVHkh3B3ebJnNeI2uQ=w397-h298-k-no",
+  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9ThNNKQiv2cxYVrq09vTkvSEAh5SAngTjgzAovMoKo5yHCI3_KyYSwArpVgthC56ExlIJ7Us5D51Hea-e5hWb1_6Nqy15WDh8Le2xKCfKBJ9HNc9VwHrQTGHkfvVhkvAFAPZIaU97Gp_wQ=w224-h380-k-no",
+  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Rg_AiHGn0bRbn-HQBUOZKCzOF4MUygvdhDgbGB1W8PcZ3NpPDfrsoXpL-5_9BqKKHkVHM7fc101Fi3TZSxrn-2XFV9eQsrNgBXthrq7j7-PQO5Ar4gzh2vxQzrzvRoatDmSq3ScfP-nIQ=w224-h398-k-no",
+  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TEFgw1ex6voWHl6B2mRczK15BbTvo_yawE1cZCnARg0ZKxIB630n6yiITw92RctiYPaMZb6oBGdf81CVRbMbOdf2Wt9JlH4bSLU2Ea50euqEeEoMC2x1x_LL8hO01qC1ymbNd4lqeJuWdG=w224-h316-k-no",
+  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QUIwQsh5HgphXVTX9XZWzRN9hRP7X6SLPm-EyNp3FgCC1TARbv0vy4v9jUnuohVMZPB8fJvTuTJFq0MhviQossgjXq-vdegRCDv1P-tzZDom2OBDUUW2Fhd3nX2i3RXg3IcgYKpxPTJtjm=w224-h398-k-no",
+  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QNbBDOD9xQ9BEHiO2BxBP0OePzJIRlZOVDXPJ0zo14wXfQtRKz8YTGHECvXcbuohMNOAH1HvoRoxAfHMEwu6902OpXdKJxczax3Rszjv315RK2Pth2aZfSBNTQh9RKg78SYpVqv5USmnY=w396-h298-k-no"
+];
+
+const defaultMenu: MenuItem[] = [
+  { id: 1, title: "Burgery", description: "Soczyste, konkretne i bez zbędnych kombinacji.", price: "od 29 zł" },
+  { id: 2, title: "Smash Burger z batatami", description: "Jedna z pozycji, po które goście wracają.", price: "39 zł", image: starter[0] },
+  { id: 3, title: "Śniadania", description: "Na dobry początek dnia albo spokojny brunch.", price: "od 22 zł" }
+];
+
+const reviews = [
+  ["Bartek Kasza", "Świetne miejsce z mega klimatem! Jedzenie naprawdę pyszne, wszystko świeże i dobrze podane."],
+  ["Bercik", "Świetne miejsce z klimatem, można w przyjemnej atmosferze zjeść śniadanie i nie tylko :)"],
+  ["zukatocm zukato", "Bardzo smaczne, fajny klimat, wszystko świeże i „na spokojnie”"]
+];
+
+export default function Home() {
+  const [photos, setPhotos] = useState(starter);
+  const [menu, setMenu] = useState<MenuItem[]>(defaultMenu);
+  const [active, setActive] = useState<number | null>(null);
+  const [panel, setPanel] = useState(false);
+  const [logged, setLogged] = useState(false);
+  const [pass, setPass] = useState("");
+  const [tab, setTab] = useState<"gallery" | "menu">("gallery");
+
+  useEffect(() => {
+    const savedPhotos = localStorage.getItem("nsp-gallery");
+    const savedMenu = localStorage.getItem("nsp-menu");
+    if (savedPhotos) setPhotos(JSON.parse(savedPhotos));
+    if (savedMenu) setMenu(JSON.parse(savedMenu));
+  }, []);
+
+  const savePhotos = (next: string[]) => {
+    setPhotos(next);
+    localStorage.setItem("nsp-gallery", JSON.stringify(next));
+  };
+
+  const saveMenu = (next: MenuItem[]) => {
+    setMenu(next);
+    localStorage.setItem("nsp-menu", JSON.stringify(next));
+  };
+
+  const addPhotos = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPhotos(current => {
+          const next = [...current, String(reader.result)];
+          localStorage.setItem("nsp-gallery", JSON.stringify(next));
+          return next;
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+    e.target.value = "";
+  };
+
+  const updateMenu = (id: number, patch: Partial<MenuItem>) => {
+    saveMenu(menu.map(item => item.id === id ? { ...item, ...patch } : item));
+  };
+
+  const addMenuItem = () => {
+    saveMenu([...menu, {
+      id: Date.now(),
+      title: "Nowa pozycja",
+      description: "Opis pozycji.",
+      price: "29 zł"
+    }]);
+  };
+
+  const addMenuPhoto = (id: number, e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => updateMenu(id, { image: String(reader.result) });
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  return (
+    <main>
+      <header>
+        <b>NA <span>SPOKOJNIE</span></b>
+        <nav><a href="#o-nas">O nas</a><a href="#menu">Menu</a><a href="#galeria">Galeria</a><a href="#opinie">Opinie</a><a href="#kontakt">Kontakt</a></nav>
+        <a className="phone" href="tel:+48577722263">577 722 263</a>
+      </header>
+
+      <section className="hero">
+        <div className="heroText">
+          <small>WROCŁAW · KRZYKI</small>
+          <h1>Dobre rzeczy.<br/><i>Na spokojnie.</i></h1>
+          <p>Restauracja, w której można zwolnić, dobrze zjeść i zostać trochę dłużej.</p>
+          <div><a className="btn acid" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a><a className="btn outline" href="#menu">Zobacz menu</a></div>
+        </div>
+        <div className="heroImg"><Image src={photos[0]} alt="Na Spokojnie" fill priority sizes="50vw"/></div>
+        <div className="rating">5,0<br/><small>451 opinii</small></div>
+      </section>
+
+      <section id="o-nas" className="split">
+        <div><small>01 / O NAS</small><h2>Miejsce, do którego <em>wpada się bez pośpiechu.</em></h2></div>
+        <p>Na Spokojnie to lokal przy Grota-Roweckiego 71 we Wrocławiu. Świeże jedzenie, swobodna atmosfera i ludzie, którzy potrafią cieszyć się chwilą. Śniadanie, burger, frytki albo po prostu coś dobrego. Bez zadęcia.</p>
+      </section>
+
+      <section id="menu" className="cream">
+        <div className="head"><div><small>02 / NA TALERZU</small><h2>Popularne wybory</h2></div><span>20–40 zł / osoba</span></div>
+        <div className="cards">
+          {menu.map((item, i) => <article key={item.id}>
+            {item.image && <div className="menuCardImage"><Image src={item.image} alt={item.title} fill sizes="33vw"/></div>}
+            <b>{String(i + 1).padStart(2, "0")}</b><h3>{item.title}</h3><p>{item.description}</p><strong>{item.price}</strong>
+          </article>)}
+        </div>
+      </section>
+
+      <section id="galeria" className="gallery">
+        <div className="head"><div><small>03 / GALERIA</small><h2>Tak to u nas wygląda</h2></div><span>{photos.length} zdjęć</span></div>
+        <div className="grid">{photos.map((p, i) => <button key={i} onClick={() => setActive(i)}><Image src={p} alt={"Na Spokojnie " + (i + 1)} fill sizes="25vw"/></button>)}</div>
+      </section>
+
+      <section id="opinie" className="dark">
+        <small>04 / GOŚCIE MÓWIĄ</small><div className="bigRating">5,0 <span>★★★★★</span></div>
+        <div className="reviews">{reviews.map(([n, t]) => <article key={n}><div>★★★★★</div><p>„{t}”</p><b>{n}</b></article>)}</div>
+      </section>
+
+      <section id="kontakt" className="split contact">
+        <div><small>05 / WPADNIJ</small><h2>Zostaw pośpiech<br/>za drzwiami.</h2><a className="bigPhone" href="tel:+48577722263">577 722 263</a></div>
+        <div><p><b>ADRES</b><br/>Grota-Roweckiego 71<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Otwarte do 23:00</p><a className="btn black" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a></div>
+      </section>
+
+      <iframe className="map" title="Mapa" src="https://www.google.com/maps?q=Grota-Roweckiego+71,+Wrocław&output=embed" loading="lazy"/>
+
+      <footer><b>NA <span>SPOKOJNIE</span></b><span>Grota-Roweckiego 71 · Wrocław</span><button onClick={() => setPanel(true)}>Panel właściciela</button></footer>
+
+      {active !== null && <div className="lightbox" onClick={() => setActive(null)}>
+        <button className="nav" onClick={e => { e.stopPropagation(); setActive((active - 1 + photos.length) % photos.length); }}>‹</button>
+        <Image src={photos[active]} alt="" fill sizes="100vw" style={{ objectFit: "contain" }}/>
+        <button className="close" onClick={() => setActive(null)}>×</button>
+        <button className="next" onClick={e => { e.stopPropagation(); setActive((active + 1) % photos.length); }}>›</button>
+      </div>}
+
+      {panel && <div className="overlay">
+        <div className="owner">
+          <button className="x" onClick={() => setPanel(false)}>×</button>
+          {!logged ? <>
+            <small>STREFA WŁAŚCICIELA</small>
+            <h2>Zarządzaj stroną</h2>
+            <p>Demo lokalne. Hasło: admin. Zmiany są zapisywane w tej przeglądarce. Później można podłączyć Supabase bez przebudowy panelu.</p>
+            <input type="password" placeholder="Hasło" value={pass} onChange={e => setPass(e.target.value)}/>
+            <button className="btn black full" onClick={() => pass === "admin" && setLogged(true)}>Zaloguj</button>
+          </> : <>
+            <small>PANEL WŁAŚCICIELA</small>
+            <div className="tabs">
+              <button className={tab === "gallery" ? "selected" : ""} onClick={() => setTab("gallery")}>Galeria</button>
+              <button className={tab === "menu" ? "selected" : ""} onClick={() => setTab("menu")}>Menu</button>
+            </div>
+
+            {tab === "gallery" ? <>
+              <h2>Galeria</h2>
+              <label className="upload">＋ Dodaj zdjęcia<input type="file" accept="image/*" multiple onChange={addPhotos}/></label>
+              <div className="admin">{photos.map((p, i) => <div key={i}>
+                <Image src={p} alt="" fill sizes="150px"/>
+                <button onClick={() => savePhotos(photos.filter((_, j) => j !== i))}>Usuń</button>
+              </div>)}</div>
+            </> : <>
+              <div className="menuAdminHeader"><div><h2>Menu</h2><p>Edytuj nazwę, opis, cenę i zdjęcie każdej pozycji.</p></div><button className="btn black" onClick={addMenuItem}>＋ Dodaj pozycję</button></div>
+              <div className="menuAdmin">
+                {menu.map(item => <article className="menuItem" key={item.id}>
+                  <div className="menuFields">
+                    <input value={item.title} onChange={e => updateMenu(item.id, { title: e.target.value })} placeholder="Nazwa"/>
+                    <textarea value={item.description} onChange={e => updateMenu(item.id, { description: e.target.value })} placeholder="Opis"/>
+                    <input value={item.price} onChange={e => updateMenu(item.id, { price: e.target.value })} placeholder="Cena"/>
+                  </div>
+                  <div className="menuPhoto">
+                    {item.image ? <Image src={item.image} alt={item.title} fill sizes="180px"/> : <span>Brak zdjęcia</span>}
+                  </div>
+                  <div className="menuPhotoControls">
+                    <label className="miniUpload">＋ {item.image ? "Zmień zdjęcie" : "Dodaj zdjęcie"}<input type="file" accept="image/*" onChange={e => addMenuPhoto(item.id, e)}/></label>
+                    {item.image && <button onClick={() => updateMenu(item.id, { image: undefined })}>Usuń zdjęcie</button>}
+                    <button className="danger" onClick={() => saveMenu(menu.filter(x => x.id !== item.id))}>Usuń pozycję</button>
+                  </div>
+                </article>)}
+              </div>
+            </>}
+          </>}
+        </div>
+      </div>}
+    </main>
+  );
+}
