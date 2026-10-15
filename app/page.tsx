@@ -80,7 +80,7 @@ export default function Home() {
       id: Date.now(),
       title: "Nowa pozycja",
       description: "Opis pozycji.",
-      price: "29 zł"
+      price: "Sprawdź aktualną cenę"
     }]);
   };
 
