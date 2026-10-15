@@ -6,6 +6,8 @@ export type MenuItem = {
   image?: string;
 };
 
+export const heroImage = "https://upload.wikimedia.org/wikipedia/commons/7/77/Gourmet_Hamburger_%28Unsplash%29.jpg";
+
 export const business = {
   name: "Na Spokojnie",
   address: "Grota-Roweckiego 71, 52-218 Wrocław",
