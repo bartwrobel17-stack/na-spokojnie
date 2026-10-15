@@ -60,7 +60,7 @@ Aby przejść na trwałe dane bez przebudowy interfejsu:
 
 1. Utwórz tabele, np. `menu_items` oraz `site_media`, z polem typu/roli rozróżniającym `gallery`, `menu_item` i `menu_page`.
 2. Przenieś zdjęcia do Supabase Storage, a w rekordach przechowuj ścieżki lub publiczne URL-e zamiast Data URL.
-3. Wydziel odczyt i zapis danych do warstwy repozytorium, np. `lib/site-repository.ts`, z implementacją localStorage dla demo i implementacją Supabase dla produkcji.
+3. Bieżący adapter demo znajduje się w `lib/browser-storage.ts`. Rozszerz go lub zastąp repozytorium Supabase, zachowując ten sam kontrakt odczytu/zapisu dla komponentów.
 4. Włącz Supabase Auth i zabezpiecz operacje zapisu regułami RLS. Nie używaj stałego hasła w kodzie frontendu.
 5. Dodaj zmienne środowiskowe `NEXT_PUBLIC_SUPABASE_URL` i `NEXT_PUBLIC_SUPABASE_ANON_KEY` w ustawieniach projektu Vercel.
 
