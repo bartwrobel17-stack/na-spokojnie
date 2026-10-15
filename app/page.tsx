@@ -45,7 +45,7 @@ export default function Home() {
       const reader = new FileReader();
       reader.onload = () => setMenuPhotos(current => {
         const next = [...current, String(reader.result)];
-        localStorage.setItem("nsp-menu-photos", JSON.stringify(next));
+        writeStored("nsp-menu-photos", next);
         return next;
       });
       reader.readAsDataURL(file);
@@ -60,7 +60,7 @@ export default function Home() {
       reader.onload = () => {
         setPhotos(current => {
           const next = [...current, String(reader.result)];
-          localStorage.setItem("nsp-gallery", JSON.stringify(next));
+          writeStored("nsp-gallery", next);
           return next;
         });
       };
