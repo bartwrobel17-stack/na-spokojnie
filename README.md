@@ -72,7 +72,7 @@ Zdjęcie hero korzysta z fotografii „Gourmet Hamburger (Unsplash)” dostępne
 
 ## SEO i adres wdrożenia
 
-Metadane i sitemap używają obecnie adresu `https://na-spokojnie.vercel.app`. Po podpięciu własnej domeny zaktualizuj adres w `app/layout.tsx`, `app/sitemap.ts` i `app/robots.ts`.
+Metadane, canonical, sitemap i robots korzystają ze zmiennej `NEXT_PUBLIC_SITE_URL`. Skopiuj `.env.example` do `.env.local` i wpisz adres produkcyjny. Na Vercel ustaw tę samą zmienną w Settings → Environment Variables. Jeśli nie ustawisz zmiennej, projekt użyje adresu `https://na-spokojnie.vercel.app`.
 
 ## Wdrożenie na Vercel
 
