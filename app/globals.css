@@ -39,3 +39,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
   .lightbox img{padding:8vh 3vw}
   .nav{left:4px}.next{right:4px}
 }
+
+
+.menuPhotoGallery .menuPagePreview{position:relative;min-height:360px;background:#fff;overflow:hidden;border:1px solid #d7d0c2}
+.menuPhotoGallery .menuPagePreview img{object-fit:contain;padding:12px}
+@media(max-width:800px){.menuPhotoGallery .menuPagePreview{min-height:260px}}
+@media(max-width:430px){.menuPhotoGallery .menuPagePreview{min-height:320px}}
