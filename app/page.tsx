@@ -109,7 +109,7 @@ export default function Home() {
           <small>WROCŁAW · KRZYKI</small>
           <h1>Dobre rzeczy.<br/><i>Na spokojnie.</i></h1>
           <p>Restauracja, w której można zwolnić, dobrze zjeść i zostać trochę dłużej.</p>
-          <div><a className="btn acid" href="{business.mapsDirections}" target="_blank">Wyznacz trasę ↗</a><a className="btn outline" href="#menu">Zobacz menu</a></div>
+          <div><a className="btn acid" href={business.mapsDirections} target="_blank">Wyznacz trasę ↗</a><a className="btn outline" href="#menu">Zobacz menu</a></div>
         </div>
         <div className="heroImg"><Image src={heroImage} alt="Elegancki burger w restauracji Na Spokojnie" fill priority sizes="50vw"/></div>
         <div className="rating">5,0<br/><small>451 opinii</small></div>
@@ -146,8 +146,8 @@ export default function Home() {
       </section>
 
       <section id="kontakt" className="split contact">
-        <div><small>05 / WPADNIJ</small><h2>Zostaw pośpiech<br/>za drzwiami.</h2><a className="bigPhone" href="tel:+48577722263">577 722 263</a></div>
-        <div><p><b>ADRES</b><br/>{business.address.split(", ")[0]}<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Godziny do potwierdzenia</p><a className="btn black" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a></div>
+        <div><small>05 / WPADNIJ</small><h2>Zostaw pośpiech<br/>za drzwiami.</h2><a className="bigPhone" href={business.phoneHref}>{business.phoneDisplay}</a></div>
+        <div><p><b>ADRES</b><br/>{business.address.split(", ")[0]}<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Godziny do potwierdzenia</p><a className="btn black" href={business.mapsDirections} target="_blank">Wyznacz trasę ↗</a></div>
       </section>
 
       <iframe className="map" title="Mapa" src={business.mapsEmbed} loading="lazy"/>
