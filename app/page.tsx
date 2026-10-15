@@ -37,6 +37,8 @@ const reviews = [
 export default function Home() {
   const [photos, setPhotos] = useState(starter);
   const [menu, setMenu] = useState<MenuItem[]>(defaultMenu);
+  const [menuPhotos, setMenuPhotos] = useState<string[]>([]);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [active, setActive] = useState<number | null>(null);
   const [panel, setPanel] = useState(false);
   const [logged, setLogged] = useState(false);
@@ -46,8 +48,10 @@ export default function Home() {
   useEffect(() => {
     const savedPhotos = localStorage.getItem("nsp-gallery");
     const savedMenu = localStorage.getItem("nsp-menu");
+    const savedMenuPhotos = localStorage.getItem("nsp-menu-photos");
     if (savedPhotos) setPhotos(JSON.parse(savedPhotos));
     if (savedMenu) setMenu(JSON.parse(savedMenu));
+    if (savedMenuPhotos) setMenuPhotos(JSON.parse(savedMenuPhotos));
   }, []);
 
   const savePhotos = (next: string[]) => {
@@ -58,6 +62,25 @@ export default function Home() {
   const saveMenu = (next: MenuItem[]) => {
     setMenu(next);
     localStorage.setItem("nsp-menu", JSON.stringify(next));
+  };
+
+  const saveMenuPhotos = (next: string[]) => {
+    setMenuPhotos(next);
+    localStorage.setItem("nsp-menu-photos", JSON.stringify(next));
+  };
+
+  const addMenuPhotos = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => setMenuPhotos(current => {
+        const next = [...current, String(reader.result)];
+        localStorage.setItem("nsp-menu-photos", JSON.stringify(next));
+        return next;
+      });
+      reader.readAsDataURL(file);
+    });
+    e.target.value = "";
   };
 
   const addPhotos = (e: ChangeEvent<HTMLInputElement>) => {
@@ -102,8 +125,11 @@ export default function Home() {
     <main>
       <header>
         <b>NA <span>SPOKOJNIE</span></b>
-        <nav><a href="#o-nas">O nas</a><a href="#menu">Menu</a><a href="#galeria">Galeria</a><a href="#opinie">Opinie</a><a href="#kontakt">Kontakt</a></nav>
+        <nav className={mobileNavOpen ? "open" : ""}>
+          {[["#o-nas", "O nas"], ["#menu", "Menu"], ["#pelna-karta", "Karta menu"], ["#galeria", "Galeria"], ["#opinie", "Opinie"], ["#kontakt", "Kontakt"]].map(([href, label]) => <a key={href} href={href} onClick={() => setMobileNavOpen(false)}>{label}</a>)}
+        </nav>
         <a className="phone" href="tel:+48577722263">577 722 263</a>
+        <button className="mobileMenuToggle" aria-label={mobileNavOpen ? "Zamknij menu" : "Otwórz menu"} aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(!mobileNavOpen)}>{mobileNavOpen ? "×" : "☰"}</button>
       </header>
 
       <section className="hero">
@@ -132,6 +158,11 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="pelna-karta" className="fullMenuSection">
+        <div className="head"><div><small>03 / PEŁNA KARTA MENU</small><h2>Wybierz coś dla siebie.</h2></div><span>{menuPhotos.length ? `${menuPhotos.length} stron karty` : "Karta menu"}</span></div>
+        {menuPhotos.length ? <div className="menuPhotoGallery">{menuPhotos.map((photo, i) => <button key={i} onClick={() => setActive(null)} aria-label={`Strona karty menu ${i + 1}`}><Image src={photo} alt={`Pełna karta menu, strona ${i + 1}`} fill sizes="(max-width: 700px) 90vw, 28vw" /></button>)}</div> : <p className="menuPlaceholder">Pełna karta menu pojawi się tutaj. Właściciel może dodać zdjęcia wszystkich stron karty w panelu.</p>}
+      </section>
+
       <section id="galeria" className="gallery">
         <div className="head"><div><small>03 / GALERIA</small><h2>Tak to u nas wygląda</h2></div><span>{photos.length} zdjęć</span></div>
         <div className="grid">{photos.map((p, i) => <button key={i} onClick={() => setActive(i)}><Image src={p} alt={"Na Spokojnie " + (i + 1)} fill sizes="25vw"/></button>)}</div>
@@ -154,13 +185,13 @@ export default function Home() {
       {active !== null && <div className="lightbox" onClick={() => setActive(null)}>
         <button className="nav" onClick={e => { e.stopPropagation(); setActive((active - 1 + photos.length) % photos.length); }}>‹</button>
         <Image src={photos[active]} alt="" fill sizes="100vw" style={{ objectFit: "contain" }}/>
-        <button className="close" onClick={() => setActive(null)}>×</button>
+        <span className="lightboxCount">{active + 1} / {photos.length}</span><button className="close" aria-label="Zamknij galerię" onClick={() => setActive(null)}>×</button>
         <button className="next" onClick={e => { e.stopPropagation(); setActive((active + 1) % photos.length); }}>›</button>
       </div>}
 
       {panel && <div className="overlay">
-        <div className="owner">
-          <button className="x" onClick={() => setPanel(false)}>×</button>
+        <div className="owner" role="dialog" aria-modal="true" aria-label="Panel właściciela">
+          <button className="x" aria-label="Zamknij panel" onClick={() => setPanel(false)}>×</button>
           {!logged ? <>
             <small>STREFA WŁAŚCICIELA</small>
             <h2>Zarządzaj stroną</h2>
@@ -183,6 +214,11 @@ export default function Home() {
               </div>)}</div>
             </> : <>
               <div className="menuAdminHeader"><div><h2>Menu</h2><p>Edytuj nazwę, opis, cenę i zdjęcie każdej pozycji.</p></div><button className="btn black" onClick={addMenuItem}>＋ Dodaj pozycję</button></div>
+              <section className="fullMenuAdmin">
+                <div><h3>Pełne zdjęcia karty menu</h3><p>To osobna galeria stron karty, niezależna od galerii restauracji i zdjęć dań.</p></div>
+                <label className="upload">＋ Dodaj zdjęcia pełnej karty<input type="file" accept="image/*" multiple onChange={addMenuPhotos}/></label>
+                <div className="admin menuPageAdmin">{menuPhotos.map((photo, i) => <div key={i}><Image src={photo} alt={`Strona karty menu ${i + 1}`} fill sizes="150px"/><button onClick={() => saveMenuPhotos(menuPhotos.filter((_, j) => j !== i))}>Usuń</button></div>)}</div>
+              </section>
               <div className="menuAdmin">
                 {menu.map(item => <article className="menuItem" key={item.id}>
                   <div className="menuFields">
