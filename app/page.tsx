@@ -2,40 +2,12 @@
 
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
+import { business, defaultMenu, reviews, starterGallery, type MenuItem } from "../lib/site-data";
 
-type MenuItem = {
-  id: number;
-  title: string;
-  description: string;
-  price: string;
-  image?: string;
-};
 
-const heroImage = "https://upload.wikimedia.org/wikipedia/commons/7/77/Gourmet_Hamburger_%28Unsplash%29.jpg";
-
-const starter = [
-  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QJWIsEXmPmLJZ6FUqn3ENs0HH8USBw2CK8Kqu75OXd00ui1aepQyPaguV59XGvdTZifSb2pb4xRy4XpKcgFT0e7uNDzDryOt76W1q3x_mK4ww8JaV_Fx0yuiZNKbVHkh3B3ebJnNeI2uQ=w397-h298-k-no",
-  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9ThNNKQiv2cxYVrq09vTkvSEAh5SAngTjgzAovMoKo5yHCI3_KyYSwArpVgthC56ExlIJ7Us5D51Hea-e5hWb1_6Nqy15WDh8Le2xKCfKBJ9HNc9VwHrQTGHkfvVhkvAFAPZIaU97Gp_wQ=w224-h380-k-no",
-  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9Rg_AiHGn0bRbn-HQBUOZKCzOF4MUygvdhDgbGB1W8PcZ3NpPDfrsoXpL-5_9BqKKHkVHM7fc101Fi3TZSxrn-2XFV9eQsrNgBXthrq7j7-PQO5Ar4gzh2vxQzrzvRoatDmSq3ScfP-nIQ=w224-h398-k-no",
-  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9TEFgw1ex6voWHl6B2mRczK15BbTvo_yawE1cZCnARg0ZKxIB630n6yiITw92RctiYPaMZb6oBGdf81CVRbMbOdf2Wt9JlH4bSLU2Ea50euqEeEoMC2x1x_LL8hO01qC1ymbNd4lqeJuWdG=w224-h316-k-no",
-  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QUIwQsh5HgphXVTX9XZWzRN9hRP7X6SLPm-EyNp3FgCC1TARbv0vy4v9jUnuohVMZPB8fJvTuTJFq0MhviQossgjXq-vdegRCDv1P-tzZDom2OBDUUW2Fhd3nX2i3RXg3IcgYKpxPTJtjm=w224-h398-k-no",
-  "https://lh3.googleusercontent.com/gps-cs-s/ANWiy9QNbBDOD9xQ9BEHiO2BxBP0OePzJIRlZOVDXPJ0zo14wXfQtRKz8YTGHECvXcbuohMNOAH1HvoRoxAfHMEwu6902OpXdKJxczax3Rszjv315RK2Pth2aZfSBNTQh9RKg78SYpVqv5USmnY=w396-h298-k-no"
-];
-
-const defaultMenu: MenuItem[] = [
-  { id: 1, title: "Burgery", description: "Soczyste, konkretne i bez zbędnych kombinacji.", price: "Sprawdź aktualną cenę" },
-  { id: 2, title: "Smash Burger z batatami", description: "Jedna z pozycji, po które goście wracają.", price: "Sprawdź aktualną cenę", image: starter[0] },
-  { id: 3, title: "Śniadania", description: "Na dobry początek dnia albo spokojny brunch.", price: "Sprawdź aktualną cenę" }
-];
-
-const reviews = [
-  ["Bartek Kasza", "Świetne miejsce z mega klimatem! Jedzenie naprawdę pyszne, wszystko świeże i dobrze podane."],
-  ["Bercik", "Świetne miejsce z klimatem, można w przyjemnej atmosferze zjeść śniadanie i nie tylko :)"],
-  ["zukatocm zukato", "Bardzo smaczne, fajny klimat, wszystko świeże i „na spokojnie”"]
-];
 
 export default function Home() {
-  const [photos, setPhotos] = useState(starter);
+  const [photos, setPhotos] = useState(starterGallery);
   const [menu, setMenu] = useState<MenuItem[]>(defaultMenu);
   const [menuPhotos, setMenuPhotos] = useState<string[]>([]);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -128,7 +100,7 @@ export default function Home() {
         <nav className={mobileNavOpen ? "open" : ""}>
           {[["#o-nas", "O nas"], ["#menu", "Menu"], ["#pelna-karta", "Karta menu"], ["#galeria", "Galeria"], ["#opinie", "Opinie"], ["#kontakt", "Kontakt"]].map(([href, label]) => <a key={href} href={href} onClick={() => setMobileNavOpen(false)}>{label}</a>)}
         </nav>
-        <a className="phone" href="tel:+48577722263">577 722 263</a>
+        <a className="phone" href={business.phoneHref}>{business.phoneDisplay}</a>
         <button className="mobileMenuToggle" aria-label={mobileNavOpen ? "Zamknij menu" : "Otwórz menu"} aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(!mobileNavOpen)}>{mobileNavOpen ? "×" : "☰"}</button>
       </header>
 
@@ -137,7 +109,7 @@ export default function Home() {
           <small>WROCŁAW · KRZYKI</small>
           <h1>Dobre rzeczy.<br/><i>Na spokojnie.</i></h1>
           <p>Restauracja, w której można zwolnić, dobrze zjeść i zostać trochę dłużej.</p>
-          <div><a className="btn acid" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a><a className="btn outline" href="#menu">Zobacz menu</a></div>
+          <div><a className="btn acid" href="{business.mapsDirections}" target="_blank">Wyznacz trasę ↗</a><a className="btn outline" href="#menu">Zobacz menu</a></div>
         </div>
         <div className="heroImg"><Image src={heroImage} alt="Elegancki burger w restauracji Na Spokojnie" fill priority sizes="50vw"/></div>
         <div className="rating">5,0<br/><small>451 opinii</small></div>
@@ -149,7 +121,7 @@ export default function Home() {
       </section>
 
       <section id="menu" className="cream">
-        <div className="head"><div><small>02 / NA TALERZU</small><h2>Popularne wybory</h2></div><span>20–40 zł / osoba</span></div>
+        <div className="head"><div><small>02 / NA TALERZU</small><h2>Popularne wybory</h2></div><span>{business.priceRange}</span></div>
         <div className="cards">
           {menu.map((item, i) => <article key={item.id}>
             {item.image && <div className="menuCardImage"><Image src={item.image} alt={item.title} fill sizes="33vw"/></div>}
@@ -170,15 +142,15 @@ export default function Home() {
 
       <section id="opinie" className="dark">
         <small>04 / GOŚCIE MÓWIĄ</small><div className="bigRating">5,0 <span>★★★★★</span></div>
-        <div className="reviews">{reviews.map(([n, t]) => <article key={n}><div>★★★★★</div><p>„{t}”</p><b>{n}</b></article>)}</div>
+        <div className="reviews">{reviews.map(review => <article key={review.name}><div>★★★★★</div><p>„{review.text}”</p><b>{review.name}</b></article>)}</div>
       </section>
 
       <section id="kontakt" className="split contact">
         <div><small>05 / WPADNIJ</small><h2>Zostaw pośpiech<br/>za drzwiami.</h2><a className="bigPhone" href="tel:+48577722263">577 722 263</a></div>
-        <div><p><b>ADRES</b><br/>Grota-Roweckiego 71<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Godziny do potwierdzenia</p><a className="btn black" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a></div>
+        <div><p><b>ADRES</b><br/>{business.address.split(", ")[0]}<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Godziny do potwierdzenia</p><a className="btn black" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a></div>
       </section>
 
-      <iframe className="map" title="Mapa" src="https://www.google.com/maps?q=Grota-Roweckiego+71,+Wrocław&output=embed" loading="lazy"/>
+      <iframe className="map" title="Mapa" src={business.mapsEmbed} loading="lazy"/>
 
       <footer><b>NA <span>SPOKOJNIE</span></b><span>Grota-Roweckiego 71 · Wrocław</span><button onClick={() => setPanel(true)}>Panel właściciela</button></footer>
 
