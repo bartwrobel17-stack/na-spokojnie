@@ -160,7 +160,7 @@ export default function Home() {
 
       <section id="pelna-karta" className="fullMenuSection">
         <div className="head"><div><small>03 / PEŁNA KARTA MENU</small><h2>Wybierz coś dla siebie.</h2></div><span>{menuPhotos.length ? `${menuPhotos.length} stron karty` : "Karta menu"}</span></div>
-        {menuPhotos.length ? <div className="menuPhotoGallery">{menuPhotos.map((photo, i) => <button key={i} onClick={() => setActive(null)} aria-label={`Strona karty menu ${i + 1}`}><Image src={photo} alt={`Pełna karta menu, strona ${i + 1}`} fill sizes="(max-width: 700px) 90vw, 28vw" /></button>)}</div> : <p className="menuPlaceholder">Pełna karta menu pojawi się tutaj. Właściciel może dodać zdjęcia wszystkich stron karty w panelu.</p>}
+        {menuPhotos.length ? <div className="menuPhotoGallery">{menuPhotos.map((photo, i) => <div className="menuPagePreview" key={i}><Image src={photo} alt={`Pełna karta menu, strona ${i + 1}`} fill sizes="(max-width: 700px) 90vw, 28vw" /></div>)}</div> : <p className="menuPlaceholder">Pełna karta menu pojawi się tutaj. Właściciel może dodać zdjęcia wszystkich stron karty w panelu.</p>}
       </section>
 
       <section id="galeria" className="gallery">
