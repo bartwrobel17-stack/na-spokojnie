@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
 import { business, defaultMenu, reviews, starterGallery, type MenuItem } from "../lib/site-data";
+import { readStored, writeStored } from "../lib/browser-storage";
 
 
 
@@ -18,27 +19,24 @@ export default function Home() {
   const [tab, setTab] = useState<"gallery" | "menu">("gallery");
 
   useEffect(() => {
-    const savedPhotos = localStorage.getItem("nsp-gallery");
-    const savedMenu = localStorage.getItem("nsp-menu");
-    const savedMenuPhotos = localStorage.getItem("nsp-menu-photos");
-    if (savedPhotos) setPhotos(JSON.parse(savedPhotos));
-    if (savedMenu) setMenu(JSON.parse(savedMenu));
-    if (savedMenuPhotos) setMenuPhotos(JSON.parse(savedMenuPhotos));
+    setPhotos(readStored("nsp-gallery", starterGallery));
+    setMenu(readStored("nsp-menu", defaultMenu));
+    setMenuPhotos(readStored("nsp-menu-photos", []));
   }, []);
 
   const savePhotos = (next: string[]) => {
     setPhotos(next);
-    localStorage.setItem("nsp-gallery", JSON.stringify(next));
+    writeStored("nsp-gallery", next);
   };
 
   const saveMenu = (next: MenuItem[]) => {
     setMenu(next);
-    localStorage.setItem("nsp-menu", JSON.stringify(next));
+    writeStored("nsp-menu", next);
   };
 
   const saveMenuPhotos = (next: string[]) => {
     setMenuPhotos(next);
-    localStorage.setItem("nsp-menu-photos", JSON.stringify(next));
+    writeStored("nsp-menu-photos", next);
   };
 
   const addMenuPhotos = (e: ChangeEvent<HTMLInputElement>) => {
