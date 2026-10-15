@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
-import { business, defaultMenu, reviews, starterGallery, type MenuItem } from "../lib/site-data";
+import { business, defaultMenu, heroImage, reviews, starterGallery, type MenuItem } from "../lib/site-data";
 import { readStored, writeStored } from "../lib/browser-storage";
 
 
