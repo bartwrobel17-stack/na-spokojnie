@@ -23,9 +23,9 @@ const starter = [
 ];
 
 const defaultMenu: MenuItem[] = [
-  { id: 1, title: "Burgery", description: "Soczyste, konkretne i bez zbędnych kombinacji.", price: "od 29 zł" },
-  { id: 2, title: "Smash Burger z batatami", description: "Jedna z pozycji, po które goście wracają.", price: "39 zł", image: starter[0] },
-  { id: 3, title: "Śniadania", description: "Na dobry początek dnia albo spokojny brunch.", price: "od 22 zł" }
+  { id: 1, title: "Burgery", description: "Soczyste, konkretne i bez zbędnych kombinacji.", price: "Sprawdź aktualną cenę" },
+  { id: 2, title: "Smash Burger z batatami", description: "Jedna z pozycji, po które goście wracają.", price: "Sprawdź aktualną cenę", image: starter[0] },
+  { id: 3, title: "Śniadania", description: "Na dobry początek dnia albo spokojny brunch.", price: "Sprawdź aktualną cenę" }
 ];
 
 const reviews = [
@@ -175,7 +175,7 @@ export default function Home() {
 
       <section id="kontakt" className="split contact">
         <div><small>05 / WPADNIJ</small><h2>Zostaw pośpiech<br/>za drzwiami.</h2><a className="bigPhone" href="tel:+48577722263">577 722 263</a></div>
-        <div><p><b>ADRES</b><br/>Grota-Roweckiego 71<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Otwarte do 23:00</p><a className="btn black" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a></div>
+        <div><p><b>ADRES</b><br/>Grota-Roweckiego 71<br/>52-218 Wrocław</p><p><b>GODZINY</b><br/>Godziny do potwierdzenia</p><a className="btn black" href="https://www.google.com/maps/dir/?api=1&destination=Grota-Roweckiego+71,+52-218+Wrocław" target="_blank">Wyznacz trasę ↗</a></div>
       </section>
 
       <iframe className="map" title="Mapa" src="https://www.google.com/maps?q=Grota-Roweckiego+71,+Wrocław&output=embed" loading="lazy"/>
